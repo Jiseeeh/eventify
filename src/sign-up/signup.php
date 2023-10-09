@@ -1,4 +1,46 @@
 <?php
+include('../config/database.php');
+
+$MIN_USERNAME_LENGTH = 6;
+$MAX_USERNAME_LENGTH = 12;
+
+$username = $password = $repeatPassword = "";
+$usernameErr = $passwordErr = '';
+
+if (isset($_POST['submit'])) {
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $repeatPassword = filter_input(INPUT_POST, 'repeatPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    if (strlen($username) > $MAX_USERNAME_LENGTH) {
+        $usernameErr = "Username is too long.";
+    } elseif (strlen($username) < $MIN_USERNAME_LENGTH) {
+        $usernameErr = "Username is too short.";
+    }
+
+    if ($password !== $repeatPassword) {
+        $passwordErr = "Passwords do not match.";
+    }
+
+    // hash password only if there are no errors
+    if (empty($usernameErr) && empty($passwordErr)) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        try {
+            $sql = "INSERT INTO user (username, password) VALUES (:username, :password)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['username' => $username, 'password' => $hashedPassword]);
+            header('Location: /src/login/login.php');
+        } catch (PDOException $e) {
+            // check if message contains username_uniq
+            if (strpos($e->getMessage(), 'username_uniq') !== false) {
+                $usernameErr = "Username already exists.";
+            }
+
+            if ($_ENV['env'] === 'dev') echo $e->getMessage();
+        }
+    }
+}
 
 ?>
 <!doctype html>
@@ -16,17 +58,19 @@
 <body>
     <main class="sections-wrapper">
         <section class="left-section">
-            <img src="/public/eventify-clear.png" alt="" class="left-section__img">
+            <img src="/public/eventify-clear.png" alt="eventify logo" class="left-section__img">
             <h1 class="left-section__heading">Create an Account</h1>
-            <form action="" class="left-section__form">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="left-section__form">
                 <label for="username">Username</label>
                 <input id="username" name="username" type="text">
+                <?php if ($usernameErr) echo "<span class='error'>{$usernameErr}</span>" ?>
                 <label for="password">Password</label>
                 <input id="password" name="password" type="password">
                 <label for="repeatPassword">Repeat Password</label>
                 <input id="repeatPassword" name="repeatPassword" type="password">
+                <?php if ($passwordErr) echo "<span class='error'>{$passwordErr}</span>" ?>
                 <span>Already have an account? <a class="left-section__form__login-link" href="/src/login/login.php">Login</a></span>
-                <button class="left-section__form__btn" type="submit">Sign Up</button>
+                <button class="left-section__form__btn" type="submit" name="submit">Sign Up</button>
             </form>
         </section>
         <section class="right-section">

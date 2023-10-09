@@ -1,3 +1,7 @@
+:root {
+  --error: #DE3163;
+}
+
 /*
   1. Use a more-intuitive box-sizing model.
 */
@@ -92,4 +96,8 @@ a {
 .btn-link {
   font-weight: bold;
   font-size: clamp(.6rem, 1.5vw, 1rem);
+}
+
+.error {
+  color: var(--error);
 }
