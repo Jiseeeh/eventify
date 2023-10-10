@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
 <body>
     <main class="sections-wrapper">
         <section class="left-section">
-            <img src="/public/eventify-clear.png" alt="eventify logo" class="left-section__img">
+            <img src="/public/eventify-clear-black.png" alt="eventify logo" class="logo left-section__img" onclick="window.location = '/index.html'">
             <h1 class="left-section__heading">Create an Account</h1>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="left-section__form">
                 <label for="username">Username</label>
