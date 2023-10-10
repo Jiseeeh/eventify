@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
             session_start();
             $_SESSION['role'] = $user->role;
             $_SESSION['username'] = $user->username;
-            header('Location: /src/dashboard/dashboard.php');
+            header('Location: /src/events/events.php');
         } else {
             $error = "Invalid username or password.";
         }
