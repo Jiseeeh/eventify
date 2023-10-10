@@ -19,7 +19,6 @@ if (isset($_POST['submit'])) {
         if ($user && password_verify($password, $user->password)) {
             session_start();
             $_SESSION['role'] = $user->role;
-            $_SESSION['user_id'] = $user->id;
             $_SESSION['username'] = $user->username;
             header('Location: /src/dashboard/dashboard.php');
         } else {
