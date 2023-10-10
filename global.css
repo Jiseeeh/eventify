@@ -98,6 +98,10 @@ a {
   font-size: clamp(.6rem, 1.5vw, 1rem);
 }
 
+.logo {
+  cursor: pointer;
+}
+
 .error {
   color: var(--error);
 }
