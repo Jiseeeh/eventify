@@ -8,6 +8,8 @@ if (!isset($_SESSION['username'])) {
     die();
 }
 
+$DEFAULT_IMG_URL = "../../public/events-default.jpg";
+
 $currentTab = "upcoming";
 $upcomingEventsMarkup;
 $onGoingEventsMarkup;
@@ -60,7 +62,9 @@ function getOngoingEventsArray($pdo)
 
 function getUpcomingEventMarkup($event)
 {
-    return "<div class='upcoming-events__card-wrapper' data-id=\"{$event->id}\">
+    global $DEFAULT_IMG_URL;
+    $img_url = $event->img_url ?? $DEFAULT_IMG_URL;
+    return "<div class='upcoming-events__card-wrapper' style='background: url({$img_url}) no-repeat;'>
     <section class='upcoming-events__card'>
         <span class='upcoming-events__card__heading'>{$event->title}</span>
         <p class='upcoming-events__card__frontmatter'>{$event->frontmatter}</p>
@@ -71,7 +75,9 @@ function getUpcomingEventMarkup($event)
 
 function getOngoingEventMarkup($event)
 {
-    return "<div class='ongoing-events__card-wrapper'>
+    global $DEFAULT_IMG_URL;
+    $img_url = $event->img_url ?? $DEFAULT_IMG_URL;
+    return "<div class='ongoing-events__card-wrapper' style='background: url({$img_url}) no-repeat;'>
     <section class='ongoing-events__card'>
         <span class='ongoing-events__card__heading'>{$event->title}</span>
         <p class='ongoing-events__card__frontmatter'>{$event->frontmatter}</p>
