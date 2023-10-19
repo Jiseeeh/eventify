@@ -1,0 +1,51 @@
+.main-wrapper {
+    padding: 1rem
+}
+
+/* overwrite btn from global.css */
+.btn {
+    background: transparent;
+    color: #453A3A;
+}
+
+/* overwrite btn from global.css */
+.btn:hover {
+    background: #f5f5f5;
+    transform: scale(1);
+    font-weight: bold;
+}
+
+.event__title {
+    text-align: center;
+}
+
+.event__date {
+    display: block;
+    text-align: center;
+    color: #453A3A;
+    font-weight: bold;
+}
+
+.event__img-wrapper {
+    position: relative;
+}
+
+.event__img {
+    width: 100%;
+    object-fit: cover;
+    max-height: 15rem;
+    border-radius: 8px;
+    filter: brightness(0.6);
+}
+
+
+.event__slots {
+    position: absolute;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    right: 0;
+    bottom: 0;
+    padding: 1rem;
+}
