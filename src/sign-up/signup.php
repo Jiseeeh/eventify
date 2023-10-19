@@ -32,13 +32,14 @@ if (isset($_POST['submit'])) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         try {
-            $sql = "INSERT INTO user (username, password) VALUES (:username, :password)";
+            $uniqid = uniqid();
+            $sql = "INSERT INTO user (username, password,uniq_id) VALUES (:username, :password, :uniqid)";
             $stmt = $pdo->prepare($sql);
-            $stmt->execute(['username' => $username, 'password' => $hashedPassword]);
+            $stmt->execute(['username' => $username, 'password' => $hashedPassword, 'uniqid' => $uniqid]);
             header('Location: /src/login/login.php');
         } catch (PDOException $e) {
-            // check if message contains username_uniq
-            if (strpos($e->getMessage(), 'username_uniq') !== false) {
+            // check if message contains has 'Duplicate'
+            if (strpos($e->getMessage(), 'Duplicate') !== false) {
                 $usernameErr = "Username already exists.";
             }
 
