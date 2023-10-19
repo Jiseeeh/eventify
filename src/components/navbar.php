@@ -28,6 +28,7 @@
     }
 </style>
 <nav>
-    <img class="nav__img" src="/public/eventify-clear-black.png" alt="eventify logo" class="logo" onclick="window.location = '../../index.html'">
-    <button class="btn nav__btn">Logout</button>
+    <img class="nav__img" src="/public/eventify-clear-black.png" alt="eventify logo" class="logo"
+        onclick="window.location = '../../index.html'">
+    <button class="btn nav__btn"><a href="/src/logout.php" class="btn-link">Logout</a></button>
 </nav>
