@@ -1,0 +1,90 @@
+main {
+    min-height: 100vh;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+}
+
+.tabs div {
+    width: 3px;
+    height: 100%;
+    background-color: #2A9F5D;
+}
+
+.tabs__item {
+    margin: 0 1rem;
+    text-align: center;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    outline: 0;
+}
+
+.tabs__item::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #2A9F5D;
+    transition: width .3s;
+}
+
+.tabs__item:hover::after {
+    width: 100%;
+}
+
+.tabs__item--active {
+    font-weight: bold;
+}
+
+.tabs__item--active::after {
+    width: 100%;
+}
+
+.upcoming-events {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    gap: 1.5rem;
+}
+
+.upcoming-events__card-wrapper {
+    background: url('/public/cvsu.webp') no-repeat;
+    background-size: cover;
+
+    border-radius: 10px;
+}
+
+.upcoming-events__card {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    backdrop-filter: brightness(0.5);
+    color: #f5f5f5;
+    /* clamp width */
+    width: clamp(15rem, 70vw, 60rem);
+    /* max-width: 60rem; */
+
+    border-radius: 10px;
+}
+
+.upcoming-events__card__heading {
+    font-weight: bold;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+
+.upcoming-events__card__btn {
+    align-self: self-end;
+}
