@@ -24,6 +24,7 @@ $remaining_slot = $event->remaining_slot;
 $maximum_slot = $event->maximum_slot;
 $description = $event->description;
 
+$has_slots = $remaining_slot > 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +66,13 @@ $description = $event->description;
                 <?php echo $description ?>
 
             </p>
-            <button class="btn"><a href="" class="btn-link">Register now</a></button>
+            <button class="btn" disabled="<?php echo $has_slots ? "false" : "true" ?>">
+                <?php if ($has_slots) {
+                    echo "<a href='./register.php' class='btn-link'>Register now</a>";
+                } else {
+                    echo "<span style='color: var(--error)'>No slots left.</span>";
+                } ?>
+            </button>
         </article>
     </main>
 </body>
