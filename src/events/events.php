@@ -107,11 +107,11 @@ function getOngoingEventMarkup($event)
             </form>
             <section class="upcoming-events">
                 <?php
-            if ($upcomingEventsMarkup && $currentTab === "upcoming") {
+            if (!empty($upcomingEventsMarkup) && $currentTab === "upcoming") {
                 foreach ($upcomingEventsMarkup as $markup) {
                     echo $markup;
                 }
-            } else if ($onGoingEventsMarkup && $currentTab === "ongoing") {
+            } else if (!empty($onGoingEventsMarkup) && $currentTab === "ongoing") {
                 foreach ($onGoingEventsMarkup as $markup) {
                     echo $markup;
                 }
