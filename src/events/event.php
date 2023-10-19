@@ -14,7 +14,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(['uniq_id' => $_GET['uid']]);
 $event = $stmt->fetch();
 
-$DEFAULT_IMG_URL = "https://global-uploads.webflow.com/64022de562115a8189fe542a/6417b36f08936723575c992c_event-evaluation.jpeg";
+$DEFAULT_IMG_URL = "../../public/events-default.jpg";
 
 $title = $event->title;
 $start_date = date("d/m/y-H:i A", strtotime($event->start));
