@@ -106,6 +106,10 @@ a {
   margin-right: auto;
 }
 
+.heading {
+  font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
 .logo {
   cursor: pointer;
 }
