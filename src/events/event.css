@@ -49,3 +49,7 @@
     bottom: 0;
     padding: 1rem;
 }
+
+.event__description {
+    text-align: justify;
+}
