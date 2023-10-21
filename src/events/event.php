@@ -68,7 +68,7 @@ $has_slots = $remaining_slot > 0;
             </p>
             <button class="btn" disabled="<?php echo $has_slots ? "false" : "true" ?>">
                 <?php if ($has_slots) {
-                    echo "<a href='./register.php' class='btn-link'>Register now</a>";
+                    echo "<a href='./register.php?uid={$event->uniq_id}' class='btn-link'>Register now</a>";
                 } else {
                     echo "<span style='color: var(--error)'>No slots left.</span>";
                 } ?>
