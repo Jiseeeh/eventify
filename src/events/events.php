@@ -64,11 +64,11 @@ function getUpcomingEventMarkup($event)
 {
     global $DEFAULT_IMG_URL;
     $img_url = $event->img_url ?? $DEFAULT_IMG_URL;
-    return "<div class='upcoming-events__card-wrapper' style='background: url({$img_url}) no-repeat;'>
-    <section class='upcoming-events__card'>
-        <span class='upcoming-events__card__heading'>{$event->title}</span>
-        <p class='upcoming-events__card__frontmatter'>{$event->frontmatter}</p>
-        <button class='btn upcoming-events__card__btn'><a href='./event.php?uid={$event->uniq_id}' class='btn-link'> Learn more -></a></button>
+    return "<div class='events__card-wrapper' style='background: url({$img_url}) no-repeat;'>
+    <section class='events__card'>
+        <span class='events__card__heading'>{$event->title}</span>
+        <p class='events__card__frontmatter'>{$event->frontmatter}</p>
+        <button class='btn events__card__btn'><a href='./event.php?uid={$event->uniq_id}' class='btn-link'> Learn more -></a></button>
     </section>
 </div>";
 }
@@ -77,11 +77,11 @@ function getOngoingEventMarkup($event)
 {
     global $DEFAULT_IMG_URL;
     $img_url = $event->img_url ?? $DEFAULT_IMG_URL;
-    return "<div class='ongoing-events__card-wrapper' style='background: url({$img_url}) no-repeat;'>
-    <section class='ongoing-events__card'>
-        <span class='ongoing-events__card__heading'>{$event->title}</span>
-        <p class='ongoing-events__card__frontmatter'>{$event->frontmatter}</p>
-        <button class='btn ongoing-events__card__btn'><a href='./event.php?uid={$event->uniq_id}' class='btn-link'> Learn more -></a></button>
+    return "<div class='events__card-wrapper' style='background: url({$img_url}) no-repeat;'>
+    <section class='events__card'>
+        <span class='events__card__heading'>{$event->title}</span>
+        <p class='events__card__frontmatter'>{$event->frontmatter}</p>
+        <button class='btn events__card__btn'><a href='./event.php?uid={$event->uniq_id}' class='btn-link'> Learn more -></a></button>
     </section>
 </div>";
 }
@@ -111,7 +111,7 @@ function getOngoingEventMarkup($event)
                 <button class="tabs__item <?php if ($currentTab === 'ongoing')
                 echo 'tabs__item--active' ?>" name="ongoing">Ongoing Events</button>
             </form>
-            <section class="upcoming-events">
+            <section class="events">
                 <?php
             if (!empty($upcomingEventsMarkup) && $currentTab === "upcoming") {
                 foreach ($upcomingEventsMarkup as $markup) {
