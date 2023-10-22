@@ -48,7 +48,7 @@ main {
     width: 100%;
 }
 
-.upcoming-events {
+.events {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -58,14 +58,14 @@ main {
     gap: 1.5rem;
 }
 
-.upcoming-events__card-wrapper {
+.events__card-wrapper {
     background: url('/public/cvsu.webp') no-repeat;
     background-size: cover;
 
     border-radius: 10px;
 }
 
-.upcoming-events__card {
+.events__card {
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -79,12 +79,12 @@ main {
     border-radius: 10px;
 }
 
-.upcoming-events__card__heading {
+.events__card__heading {
     font-weight: bold;
     font-size: clamp(1.5rem, 5vw, 3rem);
 }
 
 
-.upcoming-events__card__btn {
+.events__card__btn {
     align-self: self-end;
 }

@@ -14,7 +14,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(['uniq_id' => $_GET['uid']]);
 $event = $stmt->fetch();
 
-$DEFAULT_IMG_URL = "https://global-uploads.webflow.com/64022de562115a8189fe542a/6417b36f08936723575c992c_event-evaluation.jpeg";
+$DEFAULT_IMG_URL = "../../public/events-default.jpg";
 
 $title = $event->title;
 $start_date = date("d/m/y-H:i A", strtotime($event->start));
@@ -24,6 +24,7 @@ $remaining_slot = $event->remaining_slot;
 $maximum_slot = $event->maximum_slot;
 $description = $event->description;
 
+$has_slots = $remaining_slot > 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +66,13 @@ $description = $event->description;
                 <?php echo $description ?>
 
             </p>
-            <button class="btn"><a href="" class="btn-link">Register now</a></button>
+            <button class="btn" disabled="<?php echo $has_slots ? "false" : "true" ?>">
+                <?php if ($has_slots) {
+                    echo "<a href='./register.php?uid={$event->uniq_id}' class='btn-link'>Register now</a>";
+                } else {
+                    echo "<span style='color: var(--error)'>No slots left.</span>";
+                } ?>
+            </button>
         </article>
     </main>
 </body>

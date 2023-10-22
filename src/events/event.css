@@ -5,14 +5,15 @@
 /* overwrite btn from global.css */
 .btn {
     background: transparent;
-    color: #453A3A;
+    color: #020403;
 }
 
 /* overwrite btn from global.css */
 .btn:hover {
-    background: #f5f5f5;
+    background: #020403;
     transform: scale(1);
     font-weight: bold;
+    color: #F5F5F5
 }
 
 .event__title {
