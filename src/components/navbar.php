@@ -1,3 +1,15 @@
+<?php
+$btn_content = "Logout";
+$btn_link = "/src/logout.php";
+
+if (!isset($_SESSION['username'])) {
+    $btn_content = "Login";
+    $btn_link = "/src/login/login.php";
+}
+
+?>
+
+
 <style>
     nav {
         height: 120px;
@@ -29,6 +41,8 @@
 </style>
 <nav>
     <img class="nav__img" src="/public/eventify-clear-black.png" alt="eventify logo" class="logo"
-        onclick="window.location = '../../index.html'">
-    <button class="btn nav__btn"><a href="/src/logout.php" class="btn-link">Logout</a></button>
+        onclick="window.location = '/index.html'">
+    <button class="btn nav__btn"><a href="<?php echo $btn_link ?>" class="btn-link">
+            <?php echo $btn_content ?>
+        </a></button>
 </nav>

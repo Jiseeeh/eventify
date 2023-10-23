@@ -7,6 +7,8 @@ use chillerlan\QRCode\QRCode;
 
 require_once("../../vendor/autoload.php");
 
+$DOMAIN = "http://localhost:3000/src/events/verify.php?uid=";
+
 $notice = "Here is your generated QR Code";
 $note = "Take a screenshot of your QR Code.";
 $has_slots = true;
@@ -49,7 +51,7 @@ try {
     $stmt = $pdo->prepare($update_event_slot_sql);
     $stmt->execute(['id' => $event->id]);
 
-    $qrcode = (new QRCode)->render("http://localhost:3000/src/events/verify.php?uid=$student_event_uniq_id");
+    $qrcode = (new QRCode)->render($DOMAIN . $student_event_uniq_id);
 } catch (PDOException $e) {
     if ($_ENV['env'] === 'dev') {
         if ($e->getCode() === '23000') {
@@ -59,7 +61,7 @@ try {
             $stmt = $pdo->prepare($sql);
             $stmt->execute(['user_id' => $user->id, 'event_id' => $event->id]);
             $student_event = $stmt->fetch();
-            $qrcode = (new QRCode)->render("http://localhost:3000/src/events/verify.php?uid=$student_event->uniq_id");
+            $qrcode = (new QRCode)->render($DOMAIN . $student_event->uniq_id);
 
         } else {
             $note = $e->getMessage();
