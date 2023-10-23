@@ -1,0 +1,52 @@
+.sections-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.right-section {
+    width: 100%;
+    padding: 2rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.form__maxSlot-input {
+    width: 10rem;
+}
+
+.form__frontmatter-textarea {
+    resize: vertical;
+    max-width: 60rem;
+}
+
+.form__description-textarea {
+    max-width: 60rem;
+    resize: vertical;
+}
+
+.definition {
+    display: flex;
+    gap: .5rem;
+}
+
+.definition dt {
+    font-weight: bold;
+}
+
+
+
+@media (min-width: 768px) {
+
+    .sections-wrapper {
+        flex-direction: row;
+    }
+
+    .left-section {
+        width: 60rem;
+    }
+}
