@@ -53,7 +53,7 @@ try {
 
     $qrcode = (new QRCode)->render($DOMAIN . $student_event_uniq_id);
 } catch (PDOException $e) {
-    if ($_ENV['env'] === 'dev') {
+    if (isset($_END['env']) && $_ENV['env'] === 'dev') {
         if ($e->getCode() === '23000') {
             // get uniq_id of the event the user has already registered for
             $notice = "You have already registered for this event";

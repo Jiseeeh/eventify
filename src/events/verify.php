@@ -52,7 +52,7 @@ try {
 } catch (PDOException $e) {
     $notice = $e->getMessage();
 
-    if ($_ENV['env'] === 'dev') {
+    if (isset($_END['env']) && $_ENV['env'] === 'dev') {
         echo $e->getMessage();
     }
 }

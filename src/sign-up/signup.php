@@ -43,7 +43,7 @@ if (isset($_POST['submit'])) {
                 $usernameErr = "Username already exists.";
             }
 
-            if ($_ENV['env'] === 'dev')
+            if (isset($_END['env']) && $_ENV['env'] === 'dev')
                 echo $e->getMessage();
         }
     }
