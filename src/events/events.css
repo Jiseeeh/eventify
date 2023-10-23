@@ -1,8 +1,31 @@
-main {
-    min-height: 100vh;
-    max-width: 80rem;
-    margin-left: auto;
-    margin-right: auto;
+/* overwrite from global.css */
+.main-wrapper {
+    position: relative;
+}
+
+
+.btn-create {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: 0;
+    padding: .5rem;
+    border-radius: 5px;
+    color: #020403;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.btn-create:hover {
+    background: #020403;
+    transform: scale(1);
+    font-weight: bold;
+    color: #F5F5F5;
+    transform: scale(1.1);
+
 }
 
 .tabs {
