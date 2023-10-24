@@ -8,6 +8,15 @@ if (!isset($_SESSION['username'])) {
     die();
 }
 
+$is_admin = false;
+
+// hide create button if user is not admin
+if ($_SESSION['role'] && $_SESSION['role'] === 'ADMIN') {
+    $is_admin = true;
+}
+
+
+
 $DEFAULT_IMG_URL = "../../public/events-default.jpg";
 
 $currentTab = "upcoming";
@@ -126,7 +135,8 @@ function getOngoingEventMarkup($event)
             }
             ?>
         </section>
-        <button class="btn-create">
+        <?php if ($is_admin)
+            echo '<button class="btn-create">
             <a href="./create.php" class="btn-link">CREATE</a>
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -135,8 +145,8 @@ function getOngoingEventMarkup($event)
                 <path d="M12 5l0 14"></path>
                 <path d="M5 12l14 0"></path>
             </svg>
-        </button>
-    </main>
-</body>
+        </button>' ?>
+        </main>
+    </body>
 
-</html>
+    </html>
