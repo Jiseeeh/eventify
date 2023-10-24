@@ -25,10 +25,16 @@ try {
     $stmt->execute(['id' => $student_event->event_id]);
     $event = $stmt->fetch();
 
+    // get user details
+    $sql = "SELECT * FROM user WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['id' => $student_event->user_id]);
+    $user = $stmt->fetch();
+
 
     // check if the event is already verified
     if ($student_event->verified == 1) {
-        throw new PDOException("You are already verified.");
+        throw new PDOException("{$user->username} is already verified.");
     }
 
     // check if current date is still within the start date and end date of the event
@@ -37,7 +43,7 @@ try {
     $current_date = strtotime(date($DATE_FORMAT));
 
     if ($current_date >= $start_date && $current_date <= $end_date) {
-        $notice = "You are now verified!";
+        $notice = "{$user->username} is now verified for {$event->title}.";
         $sql = "UPDATE student_events SET verified = 1, verified_at = :current_date WHERE uniq_id = :uid";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['current_date' => date($DATE_FORMAT), 'uid' => $uid]);
@@ -46,13 +52,13 @@ try {
     } else if ($current_date > $end_date) {
         $notice = "You are not allowed to verify anymore.";
     } else {
-        $notice = "Event has ended";
+        $notice = "{$event->title} has ended.";
     }
 
 } catch (PDOException $e) {
     $notice = $e->getMessage();
 
-    if ($_ENV['env'] === 'dev') {
+    if (isset($_ENV['env']) && $_ENV['env'] === 'dev') {
         echo $e->getMessage();
     }
 }

@@ -8,6 +8,7 @@ use chillerlan\QRCode\QRCode;
 require_once("../../vendor/autoload.php");
 
 $DOMAIN = "http://localhost:3000/src/events/verify.php?uid=";
+$DUPLICATE_ENTRY_CODE = 23000;
 
 $notice = "Here is your generated QR Code";
 $note = "Take a screenshot of your QR Code.";
@@ -40,6 +41,16 @@ try {
     $stmt->execute(['username' => $username]);
     $user = $stmt->fetch();
 
+    // check if user has already registered for this event by checking the student_event table user_id and event_id
+
+    $check_if_registered_sql = "SELECT * FROM student_events WHERE user_id = :user_id AND event_id = :event_id";
+    $stmt = $pdo->prepare($check_if_registered_sql);
+    $stmt->execute(['user_id' => $user->id, 'event_id' => $event->id]);
+    $student_event = $stmt->fetch();
+    if ($stmt->rowCount() > 0) {
+        throw new PDOException("You have already registered for this event.", $DUPLICATE_ENTRY_CODE);
+    }
+
     // insert into student_event table
     $student_event_uniq_id = uniqid();
     $student_event_sql = "INSERT INTO student_events (user_id, event_id, uniq_id) VALUES (:user_id, :event_id, :uniq_id)";
@@ -53,19 +64,21 @@ try {
 
     $qrcode = (new QRCode)->render($DOMAIN . $student_event_uniq_id);
 } catch (PDOException $e) {
-    if ($_ENV['env'] === 'dev') {
-        if ($e->getCode() === '23000') {
-            // get uniq_id of the event the user has already registered for
-            $notice = "You have already registered for this event";
-            $sql = "SELECT uniq_id FROM student_events WHERE user_id = :user_id AND event_id = :event_id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(['user_id' => $user->id, 'event_id' => $event->id]);
-            $student_event = $stmt->fetch();
-            $qrcode = (new QRCode)->render($DOMAIN . $student_event->uniq_id);
+    if ($e->getCode() === $DUPLICATE_ENTRY_CODE) {
+        // get uniq_id of the event the user has already registered for
+        $notice = "You have already registered for <strong>{$event->title}</strong>";
+        $sql = "SELECT uniq_id FROM student_events WHERE user_id = :user_id AND event_id = :event_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['user_id' => $user->id, 'event_id' => $event->id]);
+        $student_event = $stmt->fetch();
+        $qrcode = (new QRCode)->render($DOMAIN . $student_event->uniq_id);
 
-        } else {
-            $note = $e->getMessage();
-        }
+    } else {
+        $note = $e->getMessage();
+    }
+
+    if (isset($_ENV['env']) && $_ENV['env'] === 'dev') {
+        echo $e->getMessage();
     }
 }
 ?>
