@@ -102,8 +102,19 @@
 .events__card__heading {
     font-weight: bold;
     font-size: clamp(1.5rem, 5vw, 3rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
+.events__card__frontmatter {
+    display: -webkit-box;
+    overflow: hidden;
+    width: 100%;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
 
 .events__card__btn {
     align-self: self-end;
