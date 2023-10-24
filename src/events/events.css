@@ -14,16 +14,16 @@
     border: 0;
     padding: .5rem;
     border-radius: 5px;
-    color: #020403;
+    color: var(--jet-black);
     cursor: pointer;
     transition: all .3s ease-in-out;
 }
 
 .btn-create:hover {
-    background: #020403;
+    background: var(--jet-black);
     transform: scale(1);
     font-weight: bold;
-    color: #F5F5F5;
+    color: var(--light-gray);
     transform: scale(1.1);
 
 }
@@ -38,7 +38,7 @@
 .tabs div {
     width: 3px;
     height: 100%;
-    background-color: #2A9F5D;
+    background-color: var(--green);
 }
 
 .tabs__item {
@@ -55,7 +55,7 @@
     display: block;
     width: 0;
     height: 2px;
-    background: #2A9F5D;
+    background: var(--green);
     transition: width .3s;
 }
 
@@ -95,10 +95,7 @@
     align-items: start;
     backdrop-filter: brightness(0.5);
     color: #f5f5f5;
-    /* clamp width */
     width: clamp(15rem, 70vw, 60rem);
-    /* max-width: 60rem; */
-
     border-radius: 10px;
 }
 

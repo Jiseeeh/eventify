@@ -5,7 +5,7 @@
 /* overwrite btn from global.css */
 .btn {
     background: transparent;
-    color: #020403;
+    color: var(--jet-black);
 }
 
 /* overwrite btn from global.css */
@@ -13,7 +13,7 @@
     background: #020403;
     transform: scale(1);
     font-weight: bold;
-    color: #F5F5F5
+    color: var(--light-gray)
 }
 
 .event__title {
@@ -23,7 +23,7 @@
 .event__date {
     display: block;
     text-align: center;
-    color: #453A3A;
+    color: var(--gray);
     font-weight: bold;
 }
 
@@ -42,7 +42,7 @@
 
 .event__slots {
     position: absolute;
-    color: white;
+    color: #FFF;
     font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
