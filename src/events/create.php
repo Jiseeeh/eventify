@@ -74,7 +74,7 @@ try {
 
 } catch (\Throwable $th) {
 
-    if (isset($_END['env']) && $_ENV['env'] === 'dev') {
+    if (isset($_ENV['env']) && $_ENV['env'] === 'dev') {
         echo $th->getMessage();
     }
 }
