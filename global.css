@@ -1,5 +1,11 @@
 :root {
   --error: #DE3163;
+  --dimmed-green: rgba(107, 176, 139, 0.2);
+  --light-green: #93FFC5;
+  --green: #2A9F5D;
+  --jet-black: #020403;
+  --light-gray: #F5F5F5;
+  --gray: #453A3A;
 }
 
 /*
@@ -78,11 +84,11 @@ a {
 }
 
 .btn {
-  background: rgba(107, 176, 139, 0.2);
+  background: var(--dimmed-green);
   border: 0;
   padding: .5rem;
   border-radius: 5px;
-  color: #93FFC5;
+  color: var(--light-green);
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -90,7 +96,7 @@ a {
 }
 
 .btn:hover {
-  background: rgba(107, 176, 139, 0.4);
+  background: var(--dimmed-green);
   transform: scale(1.1);
 }
 
