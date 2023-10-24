@@ -53,19 +53,21 @@ try {
 
     $qrcode = (new QRCode)->render($DOMAIN . $student_event_uniq_id);
 } catch (PDOException $e) {
-    if (isset($_END['env']) && $_ENV['env'] === 'dev') {
-        if ($e->getCode() === '23000') {
-            // get uniq_id of the event the user has already registered for
-            $notice = "You have already registered for this event";
-            $sql = "SELECT uniq_id FROM student_events WHERE user_id = :user_id AND event_id = :event_id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(['user_id' => $user->id, 'event_id' => $event->id]);
-            $student_event = $stmt->fetch();
-            $qrcode = (new QRCode)->render($DOMAIN . $student_event->uniq_id);
+    if ($e->getCode() === '23000') {
+        // get uniq_id of the event the user has already registered for
+        $notice = "You have already registered for this event";
+        $sql = "SELECT uniq_id FROM student_events WHERE user_id = :user_id AND event_id = :event_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['user_id' => $user->id, 'event_id' => $event->id]);
+        $student_event = $stmt->fetch();
+        $qrcode = (new QRCode)->render($DOMAIN . $student_event->uniq_id);
 
-        } else {
-            $note = $e->getMessage();
-        }
+    } else {
+        $note = $e->getMessage();
+    }
+
+    if (isset($_ENV['env']) && $_ENV['env'] === 'dev') {
+        echo $e->getMessage();
     }
 }
 ?>
