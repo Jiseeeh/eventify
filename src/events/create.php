@@ -124,15 +124,17 @@ try {
                     echo "<span class='error'>{$img_url_error}</span>" ?>
                 <?php if (!empty($fields_error))
                     echo "<span class='error'>{$fields_error}</span>" ?>
-                    <input type="submit" value="submit" name="submit">
+                    <button class="form__btn" type="submit" name="submit">Submit</button>
                 </form>
                 <section class="right-section">
                     <h1 class="heading">Friendly note</h1>
+                    <h2 class="error">Please read this first!</h2>
+
                     <p>This is for you to easily create an event in one go without having to <strong>retype all</strong>
                         on failed submission.
                     </p>
                     <dl class="definition">
-                        <dt><span class="error">*</span></dt>
+                        <dt>An asterisk <span class="error">*</span></dt>
                         <dd>Means it is required.</dd>
                     </dl>
                     <dl class="definition">
@@ -151,7 +153,8 @@ try {
                     </dl>
                     <dl class="definition">
                         <dt>Image URL</dt>
-                        <dd>The image preview for the event. Use a valid image url (webp,png,jpg, and etc.)</dd>
+                        <dd>The image preview for the event. Use a valid image url, it ends with (webp,png,jpg, and etc.)
+                        </dd>
                     </dl>
                 </section>
             </article>
