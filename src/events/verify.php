@@ -31,22 +31,30 @@ try {
     $stmt->execute(['id' => $student_event->user_id]);
     $user = $stmt->fetch();
 
-
-    // check if the event is already verified
-    if ($student_event->verified == 1) {
-        throw new PDOException("{$user->username} is already verified.");
-    }
-
     // check if current date is still within the start date and end date of the event
     $start_date = strtotime($event->start);
     $end_date = strtotime($event->end);
-    $current_date = strtotime(date($DATE_FORMAT));
+    $current_date = strtotime(date($DATE_FORMAT, time()));
 
-    if ($current_date >= $start_date && $current_date <= $end_date) {
-        $notice = "{$user->username} is now verified for {$event->title}.";
-        $sql = "UPDATE student_events SET verified = 1, verified_at = :current_date WHERE uniq_id = :uid";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(['current_date' => date($DATE_FORMAT), 'uid' => $uid]);
+    if ($current_date >= $start_date && $current_date < $end_date) {
+        // check if the user is already verified and will be verifying for the time out 
+        if ($student_event->verified == 0) {
+            $notice = "{$user->username} is now verified for {$event->title}.";
+            $sql = "UPDATE student_events SET verified = verified + 1, time_in = :current_date WHERE uniq_id = :uid";
+            $stmt = $pdo->prepare($sql);
+            $current_date = date($DATE_FORMAT, $current_date);
+            $stmt->execute(['current_date' => $current_date, 'uid' => $uid]);
+
+        } else if ($student_event->verified == 1) {
+            $notice = "{$user->username} is already verified for {$event->title}'s time out";
+            $sql = "UPDATE student_events SET verified = verified + 1, time_out = :current_date WHERE uniq_id = :uid";
+            $stmt = $pdo->prepare($sql);
+            $current_date = date($DATE_FORMAT, $current_date);
+            $stmt->execute(['current_date' => $current_date, 'uid' => $uid]);
+        } else {
+            $notice = "{$user->username} is already verified for {$event->title}'s time in and out";
+        }
+
     } else if ($current_date < $start_date) {
         $notice = "You are not allowed to verify yet.";
     } else if ($current_date > $end_date) {
