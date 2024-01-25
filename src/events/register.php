@@ -7,7 +7,8 @@ use chillerlan\QRCode\QRCode;
 
 require_once("../../vendor/autoload.php");
 
-$DOMAIN = "http://localhost:3000/src/events/verify.php?uid=";
+$DOMAIN = $_SERVER['SERVER_NAME'] . "/src/events/verify.php?uid=";
+
 $DUPLICATE_ENTRY_CODE = 23000;
 
 $notice = "Here is your generated QR Code";
