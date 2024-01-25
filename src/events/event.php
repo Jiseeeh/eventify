@@ -66,15 +66,32 @@ $has_slots = $remaining_slot > 0;
                 <?php echo $description ?>
 
             </p>
-            <button class="btn" disabled="<?php echo $has_slots ? "false" : "true" ?>">
-                <?php if ($has_slots) {
-                    echo "<a href='./register.php?uid={$event->uniq_id}' class='btn-link'>Register now</a>";
-                } else {
-                    echo "<span style='color: var(--error)'>No slots left.</span>";
-                } ?>
-            </button>
+            <section style="display: flex; gap:1px;">
+                <button class="btn" disabled="<?php echo $has_slots ? "false" : "true" ?>">
+                    <?php if ($has_slots) {
+                        echo "<a href='./register.php?uid={$event->uniq_id}' class='btn-link'>Register now</a>";
+                    } else {
+                        echo "<span style='color: var(--error)'>No slots left.</span>";
+                    } ?>
+                </button>
+                <?php
+                if ($_SESSION['role'] == 'ADMIN') {
+                    echo "<button class='btn btn-link'onclick=onDelete()>Delete</button>";
+                }
+                ?>
+            </section>
         </article>
+
     </main>
+    <script>
+        function onDelete() {
+            if (confirm('Do you want to delete this event?')) {
+                window.location.href = './delete.php?uid=<?php echo $event->uniq_id ?>';
+            } else {
+                alert("OK\n--ace")
+            }
+        }
+    </script>
 </body>
 
 </html>
